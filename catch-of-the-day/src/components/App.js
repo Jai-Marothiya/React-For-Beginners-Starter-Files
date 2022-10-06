@@ -1,16 +1,22 @@
 import React from "react";
-import Header from "../components/Header"
-import Order from "../components/Order"
-import Inventory from "../components/Inventory"
-import sampleFishes from "../sample-fishes"
+import PropTypes from 'prop-types';
+import Header from "../components/Header";
+import Order from "../components/Order";
+import Inventory from "../components/Inventory";
+import sampleFishes from "../sample-fishes";
 import Fish from "./Fish";
-import base from '../base'
+import base from '../base';
+import "../../src/css/style.css";
 
 class App extends React.Component{
     state={
         fishes : {},
         order: {}
     };
+
+    static propTypes={
+        match: PropTypes.object
+    }
 
     componentDidMount(){
         const {params} = this.props.match;
@@ -86,7 +92,7 @@ class App extends React.Component{
         return (
             <div className="catch-of-the-day">
                 <div className="menu">
-                    <Header tagline="Fresh Seafood Market" age={19} hulu={true}/>
+                    <Header tagline= "Fresh Seafood Market" age={19} hulu={true}/>
                     <ul className="fishes">
                        {Object.keys(this.state.fishes).map(key => 
                        <Fish 
@@ -98,7 +104,7 @@ class App extends React.Component{
                     </ul>
                 </div>
                 <Order fishes={this.state.fishes} order={this.state.order} removeFromOrder={this.removeFromOrder}/>
-                <Inventory addFish={this.addFish} loadSampleFishes={this.loadSampleFishes} fishes={this.state.fishes} updateFish = {this.updateFish} deleteFish={this.deleteFish}/>
+                <Inventory addFish={this.addFish} loadSampleFishes={this.loadSampleFishes} fishes={this.state.fishes} updateFish = {this.updateFish} deleteFish={this.deleteFish} storeId={this.props.match.params.storeId}/>
 
             </div>
         )
